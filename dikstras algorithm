@@ -1,0 +1,41 @@
+import heapq
+from collections import deque
+
+class Solution:
+
+    def dijkstra(self, V, adj, S):
+
+        pq = []
+        answer = [float('inf')] * V
+        answer[S] = 0
+
+        heapq.heappush(pq, (0, S))
+
+        path = [-1] * V   # parent array
+
+        while pq:
+            weight , node = heapq.heappop(pq)
+
+            if weight > answer[node]:
+                continue
+
+            for nw, nx in adj[node]:
+                if nw + weight < answer[nx]:
+                    answer[nx] = nw + weight
+                    path[nx] = node
+                    heapq.heappush(pq, (nw + weight, nx))
+
+        
+        dq = deque()
+        dq .append(V-1)
+
+    index = V-1
+
+    while path[index]!=0:
+        dq.appendleft(path[index])
+        index = path[index]
+    dq.appendleft(0)
+
+    print(dq)
+
+        
